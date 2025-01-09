@@ -1,22 +1,68 @@
-# Neural Network Verification with Branch-and-Bound for General Nonlinearities
+# GenBaB: Neural Network Verification with Branch-and-Bound for General Nonlinearities
 
-Code for paper: 
+GenBaB is a framework for neural network verification with branch-and-bound for supporting *general nonlinearties*.
+GenBaB is generally formulated so that the branch-and-bound can be applied to verification on general computational graphs with general nonlinearities.
+GenBaB also leverages the new flexibility from general nonlinearities beyond piecewise linear ReLU to make smarter decisions for the branching, with an improved branching heuristic named BBPS for choosing neurons to branch, and a mechanism for optimizing branching points on nonlinear functions being branched.
+GenBaB has been demonstrated on a wide range of NNs, including NNs with activation functions such as Sigmoid, Tanh, Sine and GeLU, as well as NNs involving multi-dimensional nonlinear operations such as LSTMs and Vision Transformers.
+GenBaB has also enabled new applications beyond simple NNs, such as [AC Optimal Power Flow (ACOPF)](https://github.com/AI4OPT/ml4acopf_benchmark).
 
-*Zhouxing Shi\*, Qirui Jin\*, Zico Kolter, Suman Jana, Cho-Jui Hsieh, Huan Zhang.*
-[Neural Network Verification with Branch-and-Bound for General Nonlinearities](https://arxiv.org/abs/2405.21063). (*Equal contribution)
+The paper of GenBaB has been accepted by the 31st International Conference on Tools and Algorithms for the Construction and Analysis of Systems [(TACAS 2025)](https://etaps.org/2025/conferences/tacas/):
 
-## Benchmarks
+Zhouxing Shi\*, Qirui Jin\*, Zico Kolter, Suman Jana, Cho-Jui Hsieh, Huan Zhang.
+[**Neural Network Verification with Branch-and-Bound for General Nonlinearities**](https://arxiv.org/abs/2405.21063). *To appear in TACAS 2025.* (*Equal contribution)
 
-We release the benchmarks used in our paper at [a HuggingFace repository](https://huggingface.co/datasets/zhouxingshi/GenBaB).
+## Dependencies
 
-Download the benchmarks by:
-```
+### Obtaining α,β-CROWN with GenBaB integrated
+
+The GenBaB algorithm is implemented into our comprehensive [α,β-CROWN](https://github.com/Verified-Intelligence/alpha-beta-CROWN) toolbox (our paper considered α,β-CROWN without GenBaB as a baseline, but GenBaB is integrated into newer α,β-CROWN).
+
+A copy of the updated α,β-CROWN with GenBaB has been included in this repository.
+At this point, the main repository of α,β-CROWN is yet to be updated with our latest GenBaB, and thus please use the version included in this repository to run GenBaB for now. However, we still recommend checking the [α,β-CROWN](https://github.com/Verified-Intelligence/alpha-beta-CROWN)  repository to learn more about α,β-CROWN with GenBaB.
+Note that in our paper, "α,β-CROWN" refers
+
+### Obtaining benchmarks
+
+Benchmarks used in the GenBaB paper are hosted at a [HuggingFace repository](zhouxingshi/GenBaB_benchmarks). Download them to a `benchmarks` folder by:
+```bash
 # Make sure you have git-lfs installed (https://git-lfs.com)
 git lfs install
 
 git clone https://huggingface.co/datasets/zhouxingshi/GenBaB benchmarks
 ```
 
+### Setting up the environment
+
+Python 3.10+ and PyTorch 2.0+ compatible with CUDA are required. GenBaB has been tested with Python 3.10 and PyTorch 2.0. We recommend using [miniconda](https://docs.anaconda.com/miniconda/) to setup a clean Python environment and [install PyTorch 2.0.0](https://pytorch.org/get-started/previous-versions/#linux-and-windows-24).
+
+Install dependencies by:
+```bash
+cd alpha-beta-CROWN
+pip install -e .
+cd complete_verifier
+pip install -r requirements.txt
+```
+
 ## Usage
 
-(More information to be added)
+Run code from the `alpha-beta-CROWN/complete_verifier` directory.
+The basic usage of running GenBaB on a benchmark is by running `abcrown.py`
+with a YAML configuration file included in each benchmark folder:
+```bash
+python abcrown.py --config CONFIG_FILE
+```
+
+For example, to run GenBaB on the Sin 4x100 model:
+```bash
+python abcrown.py --config ../../benchmarks/cifar/sin_4fc_100/config.yaml
+```
+
+A list of commands to run GenBaB on all the experimented benchmarks is at [`run.sh`](./run.sh).
+
+### Variants
+
+Options to run variants of GenBaB or the baseline without branch-and-bound:
+* `--complete_verifier skip`: Disable branch-and-bound.
+* `--nonlinear_split_method babsr-like`: Use a BaBSR-like branching heuristic instead of BBPS proposed in the paper.
+* `--branching_point_method uniform`: Disable optimized branching points.
+* `--nonlinear_split_relu_only`: For models with a mix of ReLU and other nonlinearities, only consider branching ReLU neurons, not other nonlinearities.
