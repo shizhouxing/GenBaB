@@ -35,7 +35,7 @@ git clone https://huggingface.co/datasets/zhouxingshi/GenBaB benchmarks
 
 Python 3.10+ and PyTorch 2.0+ compatible with CUDA are required. GenBaB has been tested with Python 3.10 and PyTorch 2.0. We recommend using [miniconda](https://docs.anaconda.com/miniconda/) to setup a clean Python environment and [install PyTorch 2.0.0](https://pytorch.org/get-started/previous-versions/#linux-and-windows-24).
 
-Install dependencies by:
+After setting up Python and PyTorch, install other dependencies by:
 ```bash
 cd alpha-beta-CROWN
 pip install -e .
@@ -58,6 +58,8 @@ python abcrown.py --config ../../benchmarks/cifar/sin_4fc_100/config.yaml
 ```
 
 A list of commands to run GenBaB on all the experimented benchmarks is at [`run.sh`](./run.sh).
+
+It is recommended to run [`warmup.sh`](./warmup.sh) first. The warmup script will run each kind of model on a single instance with a short timeout to build the lookup table of pre-optimized branching points. Since this lookup table can be shared by all the instances with existing model architectures, the warmup step can separate the time cost of building the lookup table from the main experiments. Otherwise, the cost of pre-optimizing branching points may be counted toward the first instance of each new model architecture.
 
 ### Variants
 
