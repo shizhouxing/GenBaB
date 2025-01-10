@@ -24,10 +24,10 @@ Zhouxing Shi\*, Qirui Jin\*, Zico Kolter, Suman Jana, Cho-Jui Hsieh, Huan Zhang.
 
 ### Obtaining α,β-CROWN with GenBaB integrated
 
-The GenBaB algorithm is implemented into our comprehensive [α,β-CROWN](https://github.com/Verified-Intelligence/alpha-beta-CROWN) toolbox (our paper considered α,β-CROWN without GenBaB as a baseline, but GenBaB is integrated into newer α,β-CROWN).
+The GenBaB algorithm is implemented into our comprehensive [α,β-CROWN](https://github.com/Verified-Intelligence/alpha-beta-CROWN) toolbox (our paper considered α,β-CROWN without GenBaB as a baseline, but GenBaB is integrated into the newer α,β-CROWN).
 
 A copy of the updated α,β-CROWN with GenBaB has been included in this repository.
-At this point, the main repository of α,β-CROWN is yet to be updated with our latest GenBaB, and thus please use the version included in this repository to run GenBaB for now. However, we still recommend checking the [α,β-CROWN](https://github.com/Verified-Intelligence/alpha-beta-CROWN)  repository to learn more about α,β-CROWN with GenBaB.
+At this point, the main repository of α,β-CROWN is yet to be updated with our latest GenBaB, and thus please use the version included in this repository to run GenBaB for now. However, we still recommend checking the [α,β-CROWN](https://github.com/Verified-Intelligence/alpha-beta-CROWN) repository to learn more about α,β-CROWN with GenBaB.
 
 ### Obtaining benchmarks
 
@@ -42,12 +42,41 @@ git clone https://huggingface.co/datasets/zhouxingshi/GenBaB benchmarks
 
 Python 3.11+ and PyTorch 2.2+ compatible with CUDA are required. GenBaB has been tested with Python 3.11 and PyTorch 2.2. We recommend using [miniconda](https://docs.anaconda.com/miniconda/) to setup a clean Python environment and [install PyTorch 2.2.0](https://pytorch.org/get-started/previous-versions/#linux-and-windows-14).
 
+If you are using a Linux x86 environment, you may install miniconda to `~/miniconda3` by:
+```bash
+wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda.sh
+bash ~/miniconda.sh -b -u -p ~/miniconda3
+~/miniconda3/bin/conda init bash
+bash
+```
+
+Create and activate a new environment with Python 3.11 for GenBaB:
+```bash
+conda create --name GenBaB -y python=3.11
+conda activate GenBaB
+```
+
+Use `conda` to install PyTorch 2.2 compatible with your CUDA version:
+```
+# If you are using CUDA 11.8
+conda install -y pytorch==2.2.0 torchvision==0.17.0 torchaudio==2.2.0 pytorch-cuda=11.8 -c pytorch -c nvidia
+
+# if you are using CUDA 12.1 or above
+conda install -y pytorch==2.2.0 torchvision==0.17.0 torchaudio==2.2.0 pytorch-cuda=12.1 -c pytorch -c nvidia
+```
+
 After setting up Python and PyTorch, install other dependencies by:
 ```bash
 cd alpha-beta-CROWN
 pip install -e .
 cd complete_verifier
 pip install -r requirements.txt
+```
+
+We have attached the conda environment we used at [`environments.yml`](./environments.yaml), with Python 3.11, PyTorch 2.2, and CUDA 12.1.
+If you have CUDA with 12.1+, you may directly create the conda environment from the `environments.yml` file with exactly the same dependency versions by:
+```bash
+conda env create -f environment.yml
 ```
 
 ## Usage
@@ -61,9 +90,9 @@ python abcrown.py --config CONFIG_FILE
 
 For the [benchmarks](https://huggingface.co/datasets/zhouxingshi/GenBaB/) we used,
 a configuration file has already been included in each benchmark folder.
-For example, to run GenBaB on the Sin 4x100 model:
+For example, to run GenBaB on the Sigmoid 4x100 model:
 ```bash
-python abcrown.py --config ../../benchmarks/cifar/sin_4fc_100/config.yaml
+python abcrown.py --config ../../benchmarks/cifar/sigmoid_4fc_100/config.yaml
 ```
 
 A list of commands to run GenBaB on all the experimented benchmarks is at [`run.sh`](./run.sh).

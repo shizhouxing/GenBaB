@@ -15,14 +15,15 @@ Our code is also hosted on [GitHub](https://github.com/shizhouxing/GenBaB) and o
 GenBaB is implemented into the [α,β-CROWN](https://github.com/Verified-Intelligence/alpha-beta-CROWN) toolbox, and a new version of α,β-CROWN with GenBaB integrated will be released to the main [α,β-CROWN](https://github.com/Verified-Intelligence/alpha-beta-CROWN) repository.
 
 The Zenodo repository contains a current copy of the code on GitHub, as well as the benchmarks. For the artifact evaluation, you may directly use the version from Zenodo.
-For readability, this README for artifact evaluation contains some links to the [README for general users](https://github.com/shizhouxing/GenBaB) in the code repository hosted on GitHub, but that README is also available on Zenodo.
+
+For readability, this README for artifact evaluation contains some links to the [README for general users](https://github.com/shizhouxing/GenBaB) on GitHub, but that README is also available on Zenodo.
 
 ## Requirements
 
 **Special requirements: An NVIDIA GPU compatible with PyTorch 2.2 is required.**
 Instead of using the TACAS VM without GPU support, we kindly request the reviewer to use a GPU server with Linux and CUDA>=11.8.
 
-If you wish to try GenBaB on the TACAS VM with CPU only, an [instruction](https://github.com/shizhouxing/GenBaB/blob/main/README_tacas.md#trying-genbab-on-a-cpu-only-machine) is attached at the end of this README.
+If you wish to try GenBaB on the TACAS VM with CPU only, an [instruction](https://github.com/shizhouxing/GenBaB/blob/main/README_tacas.md#trying-genbab-on-a-cpu-only-machine) is attached at the end.
 
 ## Setup
 
@@ -72,14 +73,14 @@ See [the "Usage" section](https://github.com/shizhouxing/GenBaB?tab=readme-ov-fi
 ### Light review
 
 To perform a light review, you may try running GenBaB
-on the first 5 instances of the CIFAR-10 Sigmoid 4x100 model:
+on the first 10 instances of the CIFAR-10 Sigmoid 4x100 model:
 ```
 # Please run the code from the `alpha-beta-CROWN/complete_verifier` directory
 # (if you are not at this directory yet)
 cd alpha-beta-CROWN/complete_verifier
 
-# `--end 5` means that we only try the first 5 instances instead of the entire benchmark
-python abcrown.py --config ../../benchmarks/cifar/sigmoid_4fc_100/config.yaml --end 5
+# `--end 10` means that we only try the first 10 instances instead of the entire benchmark
+python abcrown.py --config ../../benchmarks/cifar/sigmoid_4fc_100/config.yaml --end 10
 ```
 
 ## Full review
@@ -91,7 +92,7 @@ More advanced GPU models compatible with PyTorch 2.2 are expected to work better
 First, run [`warmup.sh`](./warmup.sh) which will run each kind of model on a single instance with a short timeout to build the lookup table of pre-optimized branching points.
 The warmup script will run each kind of model on a single instance with a short timeout to build the lookup table of pre-optimized branching points. Since this lookup table can be shared by all the instances with existing model architectures, the warmup step can separate the time cost of building the lookup table from the main experiments. Otherwise, the cost of pre-optimizing branching points may be counted toward the first instance of each new model architecture.
 
-Script [`run.sh`](./run.sh) contains a list of commands for running GenBaB on all the experimented benchmarks. Please inspect the script to understand the experiments involved, and you may select a subset of them to run for the evaluation.
+Script [`run.sh`](./run.sh) contains a list of commands for running GenBaB on all the experimented benchmarks. Please inspect the script to better understand the experiments involved, and you may select a subset of them to run for the evaluation.
 
 If you want to run variants of GenBaB or the baseline without branch-and-bound, you may add options:
 * `--complete_verifier skip`: Disable branch-and-bound.
@@ -101,12 +102,11 @@ If you want to run variants of GenBaB or the baseline without branch-and-bound, 
 
 ## GenBaB is expected to be "Reusable"
 
-As documented in the README of the code, GenBaB can [take new models and specifications](https://github.com/shizhouxing/GenBaB?tab=readme-ov-file#running-genbab-on-new-models) defined in VNN-COMP format.
-Therefore, GenBaB is expected to be "Reusable".
+As documented in the README of the code, GenBaB can [take new models and specifications](https://github.com/shizhouxing/GenBaB?tab=readme-ov-file#running-genbab-on-new-models) defined in VNN-COMP format. Therefore, GenBaB is expected to be "Reusable".
 
 ## Trying GenBaB on a CPU-only machine
 
-You may try GenBaB on a CPU-only machine, but a GPU machine is necessary to reproduce the regular performance of GenBaB. We now assume that you are using the [TACAS 23 Artifact Evaluation VM](https://zenodo.org/records/7113223) with Ubuntu 22.04 or a similar environment.
+You may try GenBaB on a CPU-only machine, but a GPU machine is necessary to reproduce the regular performance of GenBaB. In the following, we assume that you are using the [TACAS 23 Artifact Evaluation VM](https://zenodo.org/records/7113223) with Ubuntu 22.04 or a similar environment.
 
 Please configure the VM to enable internet access which is required for installing external dependencies as mentioned above.
 
