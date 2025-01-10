@@ -32,7 +32,7 @@ Note that in our paper, "α,β-CROWN" refers
 
 ### Obtaining benchmarks
 
-Benchmarks used in the GenBaB paper are hosted at a [HuggingFace repository](zhouxingshi/GenBaB_benchmarks). Download them to a `benchmarks` folder by:
+Benchmarks used in the GenBaB paper are hosted at a [HuggingFace repository](https://huggingface.co/datasets/zhouxingshi/GenBaB). Download them to a `benchmarks` folder by:
 ```bash
 # Make sure you have git-lfs installed (https://git-lfs.com)
 git lfs install
@@ -83,9 +83,10 @@ Options to run variants of GenBaB or the baseline without branch-and-bound:
 ## Running GenBaB on new models
 
 The design of GenBaB is intended to be general for models containing various nonlinearities.
+
 To run GenBaB on new models, it is recommended to prepare the model and specifications for verification following the general [VNN-COMP](https://github.com/verivital/vnncomp2024/issues/2#issue-2221794616) format.
 Specifically, in a folder, models can be provided as [ONNX](https://onnx.ai/) files, and specifications should be provided using the [VNN-LIB](https://www.vnnlib.org/) format.
 There should also be a CSV file `instances.csv` listing the instances, where each row in the CSV file contains the path to the ONNX file, VNN-LIB file, and the timeout (in seconds) for each instance.
 See the example of [`ml4acopf`](https://huggingface.co/datasets/zhouxingshi/GenBaB/tree/main/ml4acopf), as well as all the benchmarks used in [VNN-COMP 2024](https://github.com/ChristopherBrix/vnncomp2024_benchmarks).
 
-A configuration file is needed, and by default, you may use [`default_config.yaml`](./default_config.yaml). Then, follow the [usage](#usage) to run GenBaB.
+Then, add a configuration file to the folder. By default, you may use [`default_config.yaml`](./default_config.yaml). Then, follow the [usage](#usage) to run GenBaB.
