@@ -88,8 +88,6 @@ python abcrown.py --config ../../benchmarks/cifar/sigmoid_4fc_100/config.yaml --
 ## Full review
 
 The major required resource is an NVIDIA GPU compatible with PyTorch 2.2.
-We used a single NVIDIA GTX 1080 Ti GPU for each of the experiments.
-More advanced GPU models compatible with PyTorch 2.2 are expected to work better.
 
 First, run [`warmup.sh`](./warmup.sh) which will run each kind of model on a single instance with a short timeout to build the lookup table of pre-optimized branching points.
 The warmup script will run each kind of model on a single instance with a short timeout to build the lookup table of pre-optimized branching points. Since this lookup table can be shared by all the instances with existing model architectures, the warmup step can separate the time cost of building the lookup table from the main experiments. Otherwise, the cost of pre-optimizing branching points may be counted toward the first instance of each new model architecture.
