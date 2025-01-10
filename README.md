@@ -11,6 +11,15 @@ The paper of GenBaB has been accepted by the 31st International Conference on To
 Zhouxing Shi\*, Qirui Jin\*, Zico Kolter, Suman Jana, Cho-Jui Hsieh, Huan Zhang.
 [**Neural Network Verification with Branch-and-Bound for General Nonlinearities**](https://arxiv.org/abs/2405.21063). *To appear in TACAS 2025.* (*Equal contribution)
 
+```bibtex
+@inproceedings{shi2025genbab,
+  title={Neural Network Verification with Branch-and-Bound for General Nonlinearities},
+  author={Shi, Zhouxing and Jin, Qirui and Kolter, Zico and Jana, Suman and Hsieh, Cho-Jui and Zhang, Huan},
+  booktitle={International Conference on Tools and Algorithms for the Construction and Analysis of Systems},
+  year={2025}
+}
+```
+
 ## Dependencies
 
 ### Obtaining α,β-CROWN with GenBaB integrated
@@ -46,12 +55,14 @@ pip install -r requirements.txt
 ## Usage
 
 Run code from the `alpha-beta-CROWN/complete_verifier` directory.
-The basic usage of running GenBaB on a benchmark is by running `abcrown.py`
-with a YAML configuration file included in each benchmark folder:
+The basic usage of running GenBaB on a model is by running `abcrown.py`
+with a YAML configuration file.
 ```bash
 python abcrown.py --config CONFIG_FILE
 ```
 
+For the [benchmarks](https://huggingface.co/datasets/zhouxingshi/GenBaB/) we used,
+a configuration file has already been included in each benchmark folder.
 For example, to run GenBaB on the Sin 4x100 model:
 ```bash
 python abcrown.py --config ../../benchmarks/cifar/sin_4fc_100/config.yaml
@@ -59,7 +70,7 @@ python abcrown.py --config ../../benchmarks/cifar/sin_4fc_100/config.yaml
 
 A list of commands to run GenBaB on all the experimented benchmarks is at [`run.sh`](./run.sh).
 
-It is recommended to run [`warmup.sh`](./warmup.sh) first. The warmup script will run each kind of model on a single instance with a short timeout to build the lookup table of pre-optimized branching points. Since this lookup table can be shared by all the instances with existing model architectures, the warmup step can separate the time cost of building the lookup table from the main experiments. Otherwise, the cost of pre-optimizing branching points may be counted toward the first instance of each new model architecture.
+Before running commands in `run.sh`, it is recommended to run [`warmup.sh`](./warmup.sh) first. The warmup script will run each kind of model on a single instance with a short timeout to build the lookup table of pre-optimized branching points. Since this lookup table can be shared by all the instances with existing model architectures, the warmup step can separate the time cost of building the lookup table from the main experiments. Otherwise, the cost of pre-optimizing branching points may be counted toward the first instance of each new model architecture.
 
 ### Variants
 
@@ -68,3 +79,13 @@ Options to run variants of GenBaB or the baseline without branch-and-bound:
 * `--nonlinear_split_method babsr-like`: Use a BaBSR-like branching heuristic instead of BBPS proposed in the paper.
 * `--branching_point_method uniform`: Disable optimized branching points.
 * `--nonlinear_split_relu_only`: For models with a mix of ReLU and other nonlinearities, only consider branching ReLU neurons, not other nonlinearities.
+
+## Running GenBaB on new models
+
+The design of GenBaB is intended to be general for models containing various nonlinearities.
+To run GenBaB on new models, it is recommended to prepare the model and specifications for verification following the general [VNN-COMP](https://github.com/verivital/vnncomp2024/issues/2#issue-2221794616) format.
+Specifically, in a folder, models can be provided as [ONNX](https://onnx.ai/) files, and specifications should be provided using the [VNN-LIB](https://www.vnnlib.org/) format.
+There should also be a CSV file `instances.csv` listing the instances, where each row in the CSV file contains the path to the ONNX file, VNN-LIB file, and the timeout (in seconds) for each instance.
+See the example of [`ml4acopf`](https://huggingface.co/datasets/zhouxingshi/GenBaB/tree/main/ml4acopf), as well as all the benchmarks used in [VNN-COMP 2024](https://github.com/ChristopherBrix/vnncomp2024_benchmarks).
+
+A configuration file is needed, and by default, you may use [`default_config.yaml`](./default_config.yaml). Then, follow the [usage](#usage) to run GenBaB.
