@@ -11,7 +11,7 @@ This artifact contains the implementation for the **GenBaB** algorithm proposed 
 
 ## Links
 
-Link to the Zenodo repository: **LINK TO BE ADDED**
+Link to the Zenodo repository: https://zenodo.org/records/14625889
 
 Our code is also hosted on [GitHub](https://github.com/shizhouxing/GenBaB) and our benchmarks are hosted on [HuggingFace](https://github.com/shizhouxing/GenBaB).
 GenBaB is implemented into the [α,β-CROWN](https://github.com/Verified-Intelligence/alpha-beta-CROWN) toolbox, and a new version of α,β-CROWN with GenBaB integrated will be released to the main [α,β-CROWN](https://github.com/Verified-Intelligence/alpha-beta-CROWN) repository.
