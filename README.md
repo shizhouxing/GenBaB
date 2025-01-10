@@ -28,7 +28,6 @@ The GenBaB algorithm is implemented into our comprehensive [α,β-CROWN](https:/
 
 A copy of the updated α,β-CROWN with GenBaB has been included in this repository.
 At this point, the main repository of α,β-CROWN is yet to be updated with our latest GenBaB, and thus please use the version included in this repository to run GenBaB for now. However, we still recommend checking the [α,β-CROWN](https://github.com/Verified-Intelligence/alpha-beta-CROWN)  repository to learn more about α,β-CROWN with GenBaB.
-Note that in our paper, "α,β-CROWN" refers
 
 ### Obtaining benchmarks
 
