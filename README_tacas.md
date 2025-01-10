@@ -1,6 +1,8 @@
 # README for TACAS 2025 Artifact Evaluation
 
 This README is specifically for the [artifact evaluation](https://tacas.info/artifacts-25.php).
+An up-to-date version is hosted on [GitHub](https://github.com/shizhouxing/GenBaB/blob/main/README_tacas.md).
+
 Another [README for general users](https://github.com/shizhouxing/GenBaB) is available in the code repository.
 
 ## Abstract
@@ -70,7 +72,7 @@ pip install -r requirements.txt
 
 See [the "Usage" section](https://github.com/shizhouxing/GenBaB?tab=readme-ov-file#usage) in the README of the code for the general usage of GenBaB.
 
-### Light review
+## Light review
 
 To perform a light review, you may try running GenBaB
 on the first 10 instances of the CIFAR-10 Sigmoid 4x100 model:
