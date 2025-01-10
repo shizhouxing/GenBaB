@@ -35,13 +35,12 @@ Benchmarks used in the GenBaB paper are hosted at a [HuggingFace repository](htt
 ```bash
 # Make sure you have git-lfs installed (https://git-lfs.com)
 git lfs install
-
 git clone https://huggingface.co/datasets/zhouxingshi/GenBaB benchmarks
 ```
 
 ### Setting up the environment
 
-Python 3.10+ and PyTorch 2.0+ compatible with CUDA are required. GenBaB has been tested with Python 3.10 and PyTorch 2.0. We recommend using [miniconda](https://docs.anaconda.com/miniconda/) to setup a clean Python environment and [install PyTorch 2.0.0](https://pytorch.org/get-started/previous-versions/#linux-and-windows-24).
+Python 3.11+ and PyTorch 2.2+ compatible with CUDA are required. GenBaB has been tested with Python 3.11 and PyTorch 2.2. We recommend using [miniconda](https://docs.anaconda.com/miniconda/) to setup a clean Python environment and [install PyTorch 2.2.0](https://pytorch.org/get-started/previous-versions/#linux-and-windows-14).
 
 After setting up Python and PyTorch, install other dependencies by:
 ```bash
