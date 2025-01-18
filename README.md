@@ -22,12 +22,14 @@ Zhouxing Shi\*, Qirui Jin\*, Zico Kolter, Suman Jana, Cho-Jui Hsieh, Huan Zhang.
 
 ## Dependencies
 
-### Obtaining α,β-CROWN with GenBaB integrated
+### Code
 
 The GenBaB algorithm is implemented into our comprehensive [α,β-CROWN](https://github.com/Verified-Intelligence/alpha-beta-CROWN) toolbox (our paper considered α,β-CROWN without GenBaB as a baseline, but GenBaB is integrated into the newer α,β-CROWN).
-
-A copy of the updated α,β-CROWN with GenBaB has been included in this repository.
-At this point, the main repository of α,β-CROWN is yet to be updated with our latest GenBaB, and thus please use the version included in this repository to run GenBaB for now. However, we still recommend checking the [α,β-CROWN](https://github.com/Verified-Intelligence/alpha-beta-CROWN) repository to learn more about α,β-CROWN with GenBaB.
+α,β-CROWN has been included as a submodule in this repository. 
+Clone this repository along with the α,β-CROWN submodule by:
+```bash
+git clone --recursive https://github.com/shizhouxing/GenBaB.git
+```
 
 ### Obtaining benchmarks
 
