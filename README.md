@@ -29,6 +29,7 @@ The GenBaB algorithm is implemented into our comprehensive [α,β-CROWN](https:/
 Clone this repository along with the α,β-CROWN submodule by:
 ```bash
 git clone --recursive https://github.com/shizhouxing/GenBaB.git
+cd GenBaB
 ```
 
 ### Obtaining benchmarks
