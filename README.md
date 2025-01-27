@@ -25,7 +25,7 @@ Zhouxing Shi\*, Qirui Jin\*, Zico Kolter, Suman Jana, Cho-Jui Hsieh, Huan Zhang.
 ### Code
 
 The GenBaB algorithm is implemented into our comprehensive [α,β-CROWN](https://github.com/Verified-Intelligence/alpha-beta-CROWN) toolbox (our paper considered α,β-CROWN without GenBaB as a baseline, but GenBaB is integrated into the newer α,β-CROWN).
-α,β-CROWN has been included as a submodule in this repository. 
+α,β-CROWN has been included as a submodule in this repository.
 Clone this repository along with the α,β-CROWN submodule by:
 ```bash
 git clone --recursive https://github.com/shizhouxing/GenBaB.git
@@ -120,3 +120,51 @@ There should also be a CSV file `instances.csv` listing the instances, where eac
 See the example of [`ml4acopf`](https://huggingface.co/datasets/zhouxingshi/GenBaB/tree/main/ml4acopf), as well as all the benchmarks used in [VNN-COMP 2024](https://github.com/ChristopherBrix/vnncomp2024_benchmarks).
 
 Then, add a configuration file to the folder. By default, you may use [`default_config.yaml`](./default_config.yaml). Then, follow the [usage](#usage) to run GenBaB.
+
+## Docker
+
+We also provide a [Dockerfile](./Dockerfile) for automatically setting up the environment.
+
+### GPU version
+
+Assuming your system has a GPU.
+
+Build the image:
+```bash
+docker build -t genbab .
+```
+
+Start and enter a container:
+```bash
+docker run -di --shm-size=16g --gpus all --name genbab-instance genbab
+docker exec -ti genbab-instance /bin/bash
+conda activate GenBaB
+cd GenBaB/alpha-beta-CROWN/complete_verifier
+```
+
+You may now try running GenBaB on an example benchmark.
+Run:
+```bash
+python abcrown.py --config ../../benchmarks/cifar/sigmoid_4fc_100/config.yaml
+```
+
+### CPU version
+
+Build the image:
+```bash
+docker build -t genbab --build-arg CPU=1 .
+```
+
+Start and enter a container:
+```bash
+docker run -di --shm-size=16g --name genbab-instance genbab
+docker exec -ti genbab-instance /bin/bash
+conda activate GenBaB
+cd GenBaB/alpha-beta-CROWN/complete_verifier
+```
+
+You may now try running GenBaB on an example benchmark.
+Run:
+```bash
+python abcrown.py --config ../../benchmarks/cifar/sigmoid_4fc_100/config.yaml --device cpu
+```
